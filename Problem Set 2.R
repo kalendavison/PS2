@@ -1,7 +1,7 @@
-input <- c(1:100)
+data <- c(1:100)
 
-Leemis <- function(input){
-  temp <- as.numeric(substr(input, 1, 1))
+Leemis <- function(data){
+  temp <- as.numeric(substr(data, 1, 1))
   temp.table <- as.data.frame(table(temp))
   freq <- temp.table$Freq/sum(temp.table$Freq)
   out <- numeric()
@@ -12,14 +12,13 @@ Leemis <- function(input){
       }
     }
   }
-  return(out)
+  return(max(out))
 }
 
-Leemis(input)
+(Leemis(data))
 
-
-ChoGains <- function(input){
-  temp <- as.numeric(substr(input, 1, 1))
+ChoGains <- function(data){
+  temp <- as.numeric(substr(data, 1, 1))
   temp.table <- as.data.frame(table(temp))
   freq <- temp.table$Freq/sum(temp.table$Freq)
   out <- numeric()
@@ -30,10 +29,20 @@ ChoGains <- function(input){
       }
     }
   }
-  return(out)
+  return(sqrt(sum(out)))
 }
 
-sqrt(sum(ChoGains(input)))
+ChoGains(data)
 
+choose.function = function(input, data){
+  if(input == "Leemis") {
+    print(Leemis(data))
+  } else if (input == "ChoGains") {
+    print(ChoGains(data))
+     } else{ (input == "Both")
+        print(c(Leemis(data), ChoGains(data)))
+     }
+  return()
+}
 
-
+choose.function("Both", data)
