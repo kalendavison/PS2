@@ -17,32 +17,32 @@ Leemis <- function(data){  #set up function for inputted data called Leemis
 
 (Leemis(data)) #test is successful
 
-ChoGains <- function(data){
-  temp <- as.numeric(substr(data, 1, 1))
+ChoGains <- function(data){ #defines function as ChoGains, data is input)
+  temp <- as.numeric(substr(data, 1, 1)) 
   temp.table <- as.data.frame(table(temp))
   freq <- temp.table$Freq/sum(temp.table$Freq)
   out <- numeric()
   for(j in 1:length(levels(temp.table$temp))){
     for(i in 1:9){
       if(as.numeric(levels(temp.table$temp)[j])==i){
-        out[i] <- (freq[j] - log10(1+1/i))^2
+        out[i] <- (freq[j] - log10(1+1/i))^2 #ChoGains function is the same as the Leemis equation except for this line, different equation
       }
     }
   }
-  return(sqrt(sum(out)))
+  return(sqrt(sum(out))) #returns one number
 }
 
 ChoGains(data)
 
-choose.function = function(input, data){
+choose.function = function(input, data){ #choose.function has to two inputs, "input" and "data"
   if(input == "Leemis") {
-    print(Leemis(data))
+    print(Leemis(data)) #if the input is "Leemis," then it will print the output of the Leemis function with the given data
   } else if (input == "ChoGains") {
-    print(ChoGains(data))
-     } else{ (input == "Both")
-        print(c(Leemis(data), ChoGains(data)))
+    print(ChoGains(data)) #if the input is "ChoGains," then it will print the output of the ChoGain function with the given data
+     } else{ (input == "Both") 
+        print(c(Leemis(data), ChoGains(data))) #if the input is both or any other word, the outputs of both function will be printed
      }
   return()
 }
 
-choose.function("Both", data)
+choose.function("da", data)
