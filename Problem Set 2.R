@@ -69,7 +69,7 @@ Leemis.sig(data) #test works
 
 
 
-ChoGains.sig= function(data) { #will return if leemis critical value is significant
+ChoGains.sig= function(data) { #will return if ChoGain critical value is significant
   if (ChoGains(data) >=1.212 & ChoGains(data) < 1.33) { #if critical value is between these 1.212 and 1.33, it's significant at .1
     print("Critical value is significant at .10")
   } else if (ChoGains(data) >= 1.33 & ChoGains(data) < 1.569) { 
@@ -83,4 +83,18 @@ ChoGains.sig= function(data) { #will return if leemis critical value is signific
 ChoGains.sig(data) #test works
 
 
+# make function that unifies ChoGains and Leemis
+
+
+sig.function = function(input, data = 1:100){ #must specify data or returns error 
+  if (input == "Leemis"){
+    print(Leemis.sig(data)) #returns Leemis critical value significance if input is Leemis
+  }  else if (input == "ChoGains"){
+      print(ChoGains.sig(data)) #returns ChoGains sig level if input is ChoGains
+    } else {
+      print(c(ChoGains.sig(data), Leemis.sig(data))) #returns both sig levels if input is anything else
+    }
+  }
+
+sig.function("ChoGains") #test works but for some reason returns the print twice.
 
