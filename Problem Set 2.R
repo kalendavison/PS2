@@ -45,4 +45,25 @@ choose.function = function(input, data){ #choose.function has to two inputs, "in
   return()
 }
 
-choose.function("da", data)
+choose.function("Leemis", data)
+choose.function("ChoGains", data)
+choose.function("Both", data) #tests successful
+
+#2)
+
+#making a function for activity four that returns significance
+
+Leemis.sig= function(data) {
+   if (Leemis(data) >=.851 & Leemis(data) < .967) {
+      print("Critical value is significant at .10")
+    } else if (Leemis(data) >= .967 & Leemis(data) < 1.212) {
+      print("Critical value is significant at .05")
+       } else if (Leemis(data) >= 1.212) 
+         print("Critical value is significant at .01")
+            else (Leemis(data) < .851)
+            print ("Critical value is not significant")
+}
+    
+
+Leemis.sig(data)
+
