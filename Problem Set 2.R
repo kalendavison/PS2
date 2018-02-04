@@ -69,3 +69,18 @@ Leemis.sig(data) #test works
 
 
 
+ChoGains.sig= function(data) { #will return if leemis critical value is significant
+  if (ChoGains(data) >=1.212 & ChoGains(data) < 1.33) { #if critical value is between these 1.212 and 1.33, it's significant at .1
+    print("Critical value is significant at .10")
+  } else if (ChoGains(data) >= 1.33 & ChoGains(data) < 1.569) { 
+    print("Critical value is significant at .05")
+  } else if (ChoGains(data) >= 1.569) 
+    print("Critical value is significant at .01") 
+  else (ChoGains(data) < 1.212) #if critical value is less than  1.212, no significance
+  print ("Critical value is not significant")
+}
+
+ChoGains.sig(data) #test works
+
+
+
