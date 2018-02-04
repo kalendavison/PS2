@@ -83,8 +83,8 @@ ChoGains.sig= function(data) { #will return if ChoGain critical value is signifi
 ChoGains.sig(data) #test works
 
 
-# make function that unifies ChoGains and Leemis
 
+# make function that unifies ChoGains and Leemis
 
 sig.function = function(input, data = 1:100){ #must specify data or returns error 
   if (input == "Leemis"){
@@ -98,3 +98,15 @@ sig.function = function(input, data = 1:100){ #must specify data or returns erro
 
 sig.function("ChoGains") #test works but for some reason returns the print twice.
 
+
+#Master function
+
+Benford = function (input, data){ 
+  output = c(choose.function(input, data), sig.function(input, data)) #combines the functions. Will return the critical value of whichever function is specified along with significance.
+}
+
+Benford("Leemis", data)
+Benford("ChoGains", data)
+Benford("Both", data)  #all tests are successful except that it prints the critical value's significance twice, but the results are still correct.
+  
+  
