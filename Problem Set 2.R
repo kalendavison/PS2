@@ -53,17 +53,19 @@ choose.function("Both", data) #tests successful
 
 #making a function for activity four that returns significance
 
-Leemis.sig= function(data) {
-   if (Leemis(data) >=.851 & Leemis(data) < .967) {
+Leemis.sig= function(data) { #will return if leemis critical value is significant
+   if (Leemis(data) >=.851 & Leemis(data) < .967) { #if critical value is between these .851 and .967, it's significant at .1
       print("Critical value is significant at .10")
-    } else if (Leemis(data) >= .967 & Leemis(data) < 1.212) {
+    } else if (Leemis(data) >= .967 & Leemis(data) < 1.212) { 
       print("Critical value is significant at .05")
        } else if (Leemis(data) >= 1.212) 
-         print("Critical value is significant at .01")
-            else (Leemis(data) < .851)
+         print("Critical value is significant at .01") 
+            else (Leemis(data) < .851) #if critical value is less than .851, no significance
             print ("Critical value is not significant")
 }
     
 
-Leemis.sig(data)
+Leemis.sig(data) #test works
+
+
 
