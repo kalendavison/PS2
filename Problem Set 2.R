@@ -64,7 +64,7 @@ choose.function("ChoGains", data)
 choose.function("Both", data) #tests successful
 
 #2)
-### Creating a function that takes in a matrix or vector and returns a table including
+### Goal: create a function that takes in a matrix or vector and returns a table including
 ### the statistic, the statistic name, significance level, and legend.
  
 
@@ -91,6 +91,7 @@ asterisk.function = function(input, data){
 }
 
 asterisk.function("ChoGains", data)
+asterisk.function("Leemis", data)
 
 #the combined function basically adds a "both" option to the asterisk.function
 combined = function(input, data){
@@ -104,24 +105,23 @@ combined = function(input, data){
     }
 }
 
-combined("ChoGains", data)
+combined("ChoGains", data) #tests successful
 combined("Leemis", data)
-combined("Both", data) #successful except it returns the output twice for some reason.
+combined("Both", data) 
 
-
-###
+###function takes in a vector or matrix and returns a table that includes the statistic name, statistic value, significance level, and a legend
 print.benfords = function(data){ 
   Stat_name = as.character(c("Leemis", "ChoGains"))
   Statistic = c(combined("Leemis", data), combined("ChoGains", data))
-  stat.table = data.frame(Stat_name, Statistic)
+  stat.table = data.frame(Stat_name, Statistic) #display the statistic name and its corresponding value in a table
   print(stat.table)
-  cat("* = Fail to reject null hypothesis at 10% significance level", "** = Reject null hypothesis at 10% significance level",
+  cat("* = Fail to reject null hypothesis at 10% significance level", "** = Reject null hypothesis at 10% significance level",  #adds legend to below the table
                        "*** = Reject null hypothesis at 5% significance level", "**** = Reject null hypothesis at 1% significance level")
 }
 
-print.benfords(data)
+print.benfords(data) 
 
-benfords.writeCSV <- function(data){
+benfords.writeCSV <- function(data){ #takes in a vector or matrix, converts it to the previously specified table, and saves as a csv in working directory
   sink(file="Benford.csv")
   print.benfords(data)
   sink()
@@ -129,20 +129,12 @@ benfords.writeCSV <- function(data){
 
 benfords.writeCSV(data)
 
-test.data1 = c(1:49, 58:121)
-benfords.writeCSV(test.data1)
-
-library(readr) #vector data converted into benford table and read in as csv successfully
-Benfords.Data <- read_csv("/Users/kalendavison/Desktop/Applied Statistical Programming/Benford.csv")
-View(Benfords.Data)
+test.data1 = c(1:49, 58:121) #vector data converted into benford table as a csv successfully
+test_1 = benfords.writeCSV(test.data1)
 
 
-test.data2 = matrix(1:100) #matrix data converted into benford table and read in as csv successfully
-benfords.writeCSV(test.data2)
-library(readr)
-BenfordsData <- read_csv("~/Desktop/Applied Statistical Programming/Benford.csv")
-View(BenfordsData)
-
+test.data2 = matrix(1:100) #matrix data converted into benford table as a csv successfully
+test_2 = benfords.writeCSV(test.data2)
 
 
 
