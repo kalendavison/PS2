@@ -46,6 +46,9 @@ ChoGains(data)
 #@input can be "Leemis" which tells the function to run the Leemis function, "ChoGains" which tells the function to run the ChoGains function, or any character input which runs both functions
 #@data can be in vector or matrix form
 choose.function = function(input, data){ 
+  temp <- as.numeric(substr(data, 1, 1)) 
+  temp.table <- as.data.frame(table(temp))
+  print(temp.table)
   if(input == "Leemis") {
     print(Leemis(data)) #if the input is "Leemis," then it will print the output of the Leemis function with the given data
   } else if (input == "ChoGains") {
