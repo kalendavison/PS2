@@ -113,7 +113,7 @@ Benford("Both", data)  #all tests are successful except that it prints the criti
 ### Creating a function that takes in a matrix or vector and returns a table including
 ### the statistic, the statistic name, significance level, and legend
 
-print.benfords = function(input, data){
+asterisk.function = function(input, data){
     if (input == "ChoGains" & ChoGains(data) >=1.212 & ChoGains(data) < 1.33) { 
       print(paste(ChoGains(data), "**", sep=" "))
     } else if (input == "ChoGains" & ChoGains(data) >= 1.33 & ChoGains(data) < 1.569) { 
@@ -132,9 +132,18 @@ print.benfords = function(input, data){
       print(paste(Leemis(data), "*", sep=" "))
 }
 
-data = 1:100
+print.benfords = function(input, data){
+  if (input == "ChoGains") {
+      print(paste("ChoGains", asterisk.function("ChoGains", data)), sep = " ")
+    } else if (input == "Leemis") {
+      print(paste("Leemis", asterisk.function("Leemis", data)), sep = " ")
+    } else {
+      print(paste(c(asterisk.function("Leemis", data), asterisk.function("ChoGains", data))))
+    }
+}
 print.benfords("Leemis", data)
-
+print.benfords("ChoGains", data)
+print.benfords(" ADFD", data)
 
 
 
