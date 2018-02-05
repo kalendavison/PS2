@@ -109,4 +109,44 @@ Benford("Leemis", data)
 Benford("ChoGains", data)
 Benford("Both", data)  #all tests are successful except that it prints the critical value's significance twice, but the results are still correct.
   
+
+### Creating a function that takes in a matrix or vector and returns a table including
+### the statistic, the statistic name, significance level, and legend
+
+print.benfords = function(input, data){
+    if (input == "ChoGains" & ChoGains(data) >=1.212 & ChoGains(data) < 1.33) { 
+      print(paste(ChoGains(data), "**", sep=" "))
+    } else if (input == "ChoGains" & ChoGains(data) >= 1.33 & ChoGains(data) < 1.569) { 
+      print(paste(ChoGains(data), "***", sep=" "))
+    } else if (input == "ChoGains" & ChoGains(data) >= 1.569) {
+      print(paste(ChoGains(data), "****", sep=" ")) 
+   } else if (input == "ChoGains" & ChoGains(data) < 1.212){
+    print(paste(ChoGains(data), "*", sep=" "))
+     } else if (input == "Leemis" & Leemis(data) >=.851 & Leemis(data) < .967) { 
+        print(paste(Leemis(data), "**", sep=" "))
+      } else if (input == "Leemis" & Leemis(data) >= .967 & Leemis(data) < 1.212) { 
+        print(paste(Leemis(data), "***", sep=" "))
+      } else if (input =="Leemis" & Leemis(data) >= 1.212) {
+        print(paste(Leemis(data), "****", sep=" ")) 
+      } else if (input=="Leemis" & Leemis(data) < .851) 
+      print(paste(Leemis(data), "*", sep=" "))
+}
+
+data = 1:100
+print.benfords("Leemis", data)
+
+
+
+
+
+
+
+
+
+
+
   
+
+
+
+
