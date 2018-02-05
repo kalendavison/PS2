@@ -155,14 +155,28 @@ print.benfords = function(data){
 
 print.benfords(data)
 
+benfords.writeCSV = function (x, Benfords.file.path){ #function saves table as a csv in specified working directory
+  setwd(Benfords.file.path)
+  write.as = file("BenfordsData.csv")
+  stat.table = print.benfords(x)
+  sink(write.as)
+  write.csv(stat.table, write.as)
+  close(write.as)
+  }
+
+test.data1 = c(1:49, 58:121)
+benfords.writeCSV(test.data, "/Users/kalendavison/Desktop/Applied Statistical Programming")
+
+library(readr) #vector data converted into benford table and read in as csv successfully
+BenfordsData <- read_csv("~/Desktop/Applied Statistical Programming/BenfordsData.csv")
+View(BenfordsData)
 
 
-
-
-
-
-
-
+test.data2 = matrix(1:100) #matrix data converted into benford table and read in as csv successfully
+benfords.writeCSV(test.data2, "/Users/kalendavison/Desktop/Applied Statistical Programming")
+library(readr)
+BenfordsData <- read_csv("~/Desktop/Applied Statistical Programming/BenfordsData.csv")
+View(BenfordsData)
 
   
 
