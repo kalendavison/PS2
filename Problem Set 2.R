@@ -147,8 +147,12 @@ print.benfords("d", data)
 print.benfords = function(data){
   Stat_name = as.character(c("Leemis", "ChoGains"))
   Statistic = combined("both", data)
-  print(data.frame(Stat_name, Statistic))
+  stat.table = data.frame(Stat_name, Statistic)
+  legend = rbind("* = Fail to reject null hypothesis at 10% significance level", "** = Reject null hypothesis at 10% significance level",
+                  "*** = Reject null hypothesis at 5% significance level", "**** = Reject null hypothesis at 1% significance level")
+  return(list(stat.table, legend))
 }
+
 print.benfords(data)
 
 
