@@ -132,18 +132,24 @@ asterisk.function = function(input, data){
       print(paste(Leemis(data), "*", sep=" "))
 }
 
-print.benfords = function(input, data){
+combined = function(input, data){
   if (input == "ChoGains") {
-      print(paste("ChoGains", asterisk.function("ChoGains", data)), sep = " ")
+      print(asterisk.function("ChoGains", data))
     } else if (input == "Leemis") {
-      print(paste("Leemis", asterisk.function("Leemis", data)), sep = " ")
+      print(asterisk.function("Leemis", data))
     } else {
-      print(paste(c(asterisk.function("Leemis", data), asterisk.function("ChoGains", data))))
+      print(c(asterisk.function("Leemis", data), asterisk.function("ChoGains", data)))
     }
 }
 print.benfords("Leemis", data)
-print.benfords("ChoGains", data)
-print.benfords(" ADFD", data)
+print.benfords("d", data)
+
+print.benfords = function(data){
+  Stat_name = as.character(c("Leemis", "ChoGains"))
+  Statistic = combined("both", data)
+  print(data.frame(Stat_name, Statistic))
+}
+print.benfords(data)
 
 
 
