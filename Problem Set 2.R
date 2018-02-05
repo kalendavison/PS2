@@ -1,4 +1,11 @@
-data <- c(1:100)  #test dataset used to understand if the code is working
+#Kalen Davison
+#Jacob Montgomery
+#PS2
+#Due 2/6/18
+
+data <- c(1:100)  #test vector used throughout the PS to understand if the code is working
+
+#Leemis function takes in vectors or matrices and returns the Leemis critical value.
 
 Leemis <- function(data){  #set up function for inputted data called Leemis
   temp <- as.numeric(substr(data, 1, 1)) #defined a vector, "temp," within the function. Temp is the first digit of each element of the inputted vector
@@ -17,7 +24,8 @@ Leemis <- function(data){  #set up function for inputted data called Leemis
 
 (Leemis(data)) #test is successful
 
-ChoGains <- function(data){ #defines function as ChoGains, data is input)
+# The function ChoGains takes a vector or matrix in @data and returns the ChoGains critical value
+ChoGains <- function(data){ #defines function as ChoGains
   temp <- as.numeric(substr(data, 1, 1)) 
   temp.table <- as.data.frame(table(temp))
   freq <- temp.table$Freq/sum(temp.table$Freq)
@@ -29,12 +37,15 @@ ChoGains <- function(data){ #defines function as ChoGains, data is input)
       }
     }
   }
-  return(sqrt(sum(out))) #returns one number
+  return(sqrt(sum(out))) #returns the critical value
 }
 
 ChoGains(data)
 
-choose.function = function(input, data){ #choose.function has to two inputs, "input" and "data"
+#choose.function takes in a specification for the kind of statistical test desired and a vector or matrix. It can return one critical value or both critical values.
+#@input can be "Leemis" which tells the function to run the Leemis function, "ChoGains" which tells the function to run the ChoGains function, or any character input which runs both functions
+#@data can be in vector or matrix form
+choose.function = function(input, data){ 
   if(input == "Leemis") {
     print(Leemis(data)) #if the input is "Leemis," then it will print the output of the Leemis function with the given data
   } else if (input == "ChoGains") {
@@ -50,69 +61,13 @@ choose.function("ChoGains", data)
 choose.function("Both", data) #tests successful
 
 #2)
-
-#making a function for activity four that returns significance
-
-Leemis.sig= function(data) { #will return if leemis critical value is significant
-   if (Leemis(data) >=.851 & Leemis(data) < .967) { #if critical value is between these .851 and .967, it's significant at .1
-      print("Critical value is significant at .10")
-    } else if (Leemis(data) >= .967 & Leemis(data) < 1.212) { 
-      print("Critical value is significant at .05")
-       } else if (Leemis(data) >= 1.212) 
-         print("Critical value is significant at .01") 
-            else (Leemis(data) < .851) #if critical value is less than .851, no significance
-            print ("Critical value is not significant")
-}
-    
-
-Leemis.sig(data) #test works
-
-
-
-ChoGains.sig= function(data) { #will return if ChoGain critical value is significant
-  if (ChoGains(data) >=1.212 & ChoGains(data) < 1.33) { #if critical value is between these 1.212 and 1.33, it's significant at .1
-    print("Critical value is significant at .10")
-  } else if (ChoGains(data) >= 1.33 & ChoGains(data) < 1.569) { 
-    print("Critical value is significant at .05")
-  } else if (ChoGains(data) >= 1.569) 
-    print("Critical value is significant at .01") 
-  else (ChoGains(data) < 1.212) #if critical value is less than  1.212, no significance
-  print ("Critical value is not significant")
-}
-
-ChoGains.sig(data) #test works
-
-
-
-# make function that unifies ChoGains and Leemis
-
-sig.function = function(input, data = 1:100){ #must specify data or returns error 
-  if (input == "Leemis"){
-    print(Leemis.sig(data)) #returns Leemis critical value significance if input is Leemis
-  }  else if (input == "ChoGains"){
-      print(ChoGains.sig(data)) #returns ChoGains sig level if input is ChoGains
-    } else {
-      print(c(ChoGains.sig(data), Leemis.sig(data))) #returns both sig levels if input is anything else
-    }
-  }
-
-sig.function("ChoGains") #test works but for some reason returns the print twice.
-
-
-#Master function
-
-Benford = function (input, data){ 
-  output = c(choose.function(input, data), sig.function(input, data)) #combines the functions. Will return the critical value of whichever function is specified along with significance.
-}
-
-Benford("Leemis", data)
-Benford("ChoGains", data)
-Benford("Both", data)  #all tests are successful except that it prints the critical value's significance twice, but the results are still correct.
-  
-
 ### Creating a function that takes in a matrix or vector and returns a table including
-### the statistic, the statistic name, significance level, and legend
+### the statistic, the statistic name, significance level, and legend.
+ 
 
+# Function can return the critical value from Leemis or ChoGains along with asterisks that indicate the significance of the critical value
+# @Input can be "ChoGains" or "Leemis," signals which critical value to return
+# @Data can be in vector or matrix form
 asterisk.function = function(input, data){
     if (input == "ChoGains" & ChoGains(data) >=1.212 & ChoGains(data) < 1.33) { 
       print(paste(ChoGains(data), "**", sep=" "))
@@ -132,53 +87,59 @@ asterisk.function = function(input, data){
       print(paste(Leemis(data), "*", sep=" "))
 }
 
+asterisk.function("ChoGains", data)
+
+#the combined function basically adds a "both" option to the asterisk.function
 combined = function(input, data){
   if (input == "ChoGains") {
-      print(asterisk.function("ChoGains", data))
+      asterisk.function("ChoGains", data)
     } else if (input == "Leemis") {
-      print(asterisk.function("Leemis", data))
-    } else {
-      print(c(asterisk.function("Leemis", data), asterisk.function("ChoGains", data)))
+      asterisk.function("Leemis", data)
+    } else if (input == "Both") {
+      asterisk.function("Leemis", data)
+      asterisk.function("ChoGains", data)
     }
 }
-print.benfords("Leemis", data)
-print.benfords("d", data)
 
-print.benfords = function(data){
+combined("ChoGains", data)
+combined("Leemis", data)
+combined("Both", data) #successful except it returns the output twice for some reason.
+
+
+###
+print.benfords = function(data){ 
   Stat_name = as.character(c("Leemis", "ChoGains"))
-  Statistic = combined("both", data)
+  Statistic = c(combined("Leemis", data), combined("ChoGains", data))
   stat.table = data.frame(Stat_name, Statistic)
-  legend = rbind("* = Fail to reject null hypothesis at 10% significance level", "** = Reject null hypothesis at 10% significance level",
-                  "*** = Reject null hypothesis at 5% significance level", "**** = Reject null hypothesis at 1% significance level")
-  return(list(stat.table, legend))
+  print(stat.table)
+  cat("* = Fail to reject null hypothesis at 10% significance level", "** = Reject null hypothesis at 10% significance level",
+                       "*** = Reject null hypothesis at 5% significance level", "**** = Reject null hypothesis at 1% significance level")
 }
 
 print.benfords(data)
 
-benfords.writeCSV = function (x, Benfords.file.path){ #function saves table as a csv in specified working directory
-  setwd(Benfords.file.path)
-  write.as = file("BenfordsData.csv")
-  stat.table = print.benfords(x)
-  sink(write.as)
-  write.csv(stat.table, write.as)
-  close(write.as)
-  }
+benfords.writeCSV <- function(data){
+  sink(file="Benford.csv")
+  print.benfords(data)
+  sink()
+}
+
+benfords.writeCSV(data)
 
 test.data1 = c(1:49, 58:121)
-benfords.writeCSV(test.data, "/Users/kalendavison/Desktop/Applied Statistical Programming")
+benfords.writeCSV(test.data1)
 
 library(readr) #vector data converted into benford table and read in as csv successfully
-BenfordsData <- read_csv("~/Desktop/Applied Statistical Programming/BenfordsData.csv")
-View(BenfordsData)
+Benfords.Data <- read_csv("/Users/kalendavison/Desktop/Applied Statistical Programming/Benford.csv")
+View(Benfords.Data)
 
 
 test.data2 = matrix(1:100) #matrix data converted into benford table and read in as csv successfully
-benfords.writeCSV(test.data2, "/Users/kalendavison/Desktop/Applied Statistical Programming")
+benfords.writeCSV(test.data2)
 library(readr)
-BenfordsData <- read_csv("~/Desktop/Applied Statistical Programming/BenfordsData.csv")
+BenfordsData <- read_csv("~/Desktop/Applied Statistical Programming/Benford.csv")
 View(BenfordsData)
 
-  
 
 
 
